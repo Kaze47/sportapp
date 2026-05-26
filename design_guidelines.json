@@ -1,0 +1,149 @@
+{
+  "theme_and_archetype": {
+    "theme": "Dark",
+    "archetype": "Hybrid 2 (Performance Pro) & 7 (Electric & Neon)",
+    "description": "A high-energy, command-center feel grounded in Deep Obsidian. UI uses Tactical Minimalism with Vibrant Neon Green as a kinetic trigger. High contrast, highly legible."
+  },
+  "colors": {
+    "background": "#050505",
+    "surface": "#121212",
+    "surface_raised": "#1E1E1E",
+    "primary": "#00FF55",
+    "primary_hover": "#00CC44",
+    "primary_transparent": "rgba(0, 255, 85, 0.15)",
+    "text_primary": "#FFFFFF",
+    "text_secondary": "#A1A1AA",
+    "border": "#27272A",
+    "success": "#00FF55",
+    "warning": "#FFB800",
+    "error": "#FF3333",
+    "map_terrain": "#0F0F0F",
+    "map_roads": "#1A1A1A"
+  },
+  "typography": {
+    "heading_font": "Outfit",
+    "body_font": "Manrope",
+    "scales": {
+      "h1": { "fontSize": 40, "lineHeight": 44, "letterSpacing": -1, "fontFamily": "Outfit-Bold" },
+      "h2": { "fontSize": 32, "lineHeight": 36, "letterSpacing": -0.5, "fontFamily": "Outfit-Bold" },
+      "h3": { "fontSize": 24, "lineHeight": 28, "letterSpacing": -0.5, "fontFamily": "Outfit-SemiBold" },
+      "h4": { "fontSize": 18, "lineHeight": 24, "letterSpacing": 0, "fontFamily": "Outfit-SemiBold" },
+      "body_large": { "fontSize": 16, "lineHeight": 24, "fontFamily": "Manrope-Regular" },
+      "body": { "fontSize": 14, "lineHeight": 20, "fontFamily": "Manrope-Regular" },
+      "label_overline": { "fontSize": 12, "lineHeight": 16, "letterSpacing": 1.5, "fontFamily": "Outfit-Bold", "textTransform": "uppercase" }
+    }
+  },
+  "spacing": {
+    "xs": 4,
+    "sm": 8,
+    "md": 16,
+    "lg": 24,
+    "xl": 32,
+    "2xl": 48,
+    "3xl": 64
+  },
+  "radii": {
+    "none": 0,
+    "sm": 4,
+    "md": 8,
+    "lg": 16,
+    "full": 9999
+  },
+  "shadows": {
+    "glow_primary": "0px 0px 16px rgba(0, 255, 85, 0.4)",
+    "surface_subtle": "0px 4px 12px rgba(0, 0, 0, 0.5)"
+  },
+  "components": {
+    "button": {
+      "primary": "Solid #00FF55 background, #050505 text, 0px border radius (tactical), bold uppercase text.",
+      "secondary": "Transparent background, 1px solid #27272A border, #FFFFFF text.",
+      "glass": "rgba(255,255,255,0.05) background, backdrop-blur, 1px border rgba(255,255,255,0.1)."
+    },
+    "map_pin": {
+      "style": "Solid #00FF55 circle with inner black icon, surrounded by a subtle rgba(0,255,85,0.2) pulsing ring."
+    },
+    "bottom_sheet": {
+      "style": "Background #121212, 16px top border radius, 1px top border #27272A. Includes a 4x32px grabber at the top (#27272A)."
+    },
+    "match_card": {
+      "style": "Background #1E1E1E, 8px border radius, left-aligned content. High contrast title, vibrant neon green date/time label. Avatar stack for joined players."
+    },
+    "chat_bubble": {
+      "sent": "Background #00FF55, Text #050505, sharp bottom-right corner.",
+      "received": "Background #1E1E1E, Text #FFFFFF, sharp bottom-left corner."
+    }
+  },
+  "layout_strategy": {
+    "general": "Tactical Minimalism. Heavy use of negative space around metrics. Elements are mostly rectangular or slightly rounded (4px-8px).",
+    "map": "Map takes up 100% of the screen behind the UI (absolute positioning). Top nav and bottom sheet float over it using Glassmorphism surfaces."
+  },
+  "icons": {
+    "library": "lucide-react-native",
+    "mapping": {
+      "football": "Trophy",
+      "basketball": "Dribbble",
+      "tennis": "CircleDot",
+      "volleyball": "Globe",
+      "location": "MapPin",
+      "time": "Clock",
+      "chat": "MessageSquare",
+      "profile": "User",
+      "team": "Users",
+      "filter": "SlidersHorizontal"
+    }
+  },
+  "image_urls": {
+    "hero_backgrounds": [
+      {
+        "url": "https://static.prod-images.emergentagent.com/jobs/c0055dd7-7fb5-4479-9737-2fe40424bef5/images/787b3741813d74781cbfab14284763c98a42cc8c132ef44e85cc5b7f0fc66278.png",
+        "description": "Cinematic wide-angle shot of a sleek, dark obsidian textured basketball court at night, subtle glowing neon green lines",
+        "category": "onboarding_hero"
+      },
+      {
+        "url": "https://static.prod-images.emergentagent.com/jobs/c0055dd7-7fb5-4479-9737-2fe40424bef5/images/57e28799d1b35439ada6e419bb21c4bb5be6d409e7e294d6e4a45252e8c690a5.png",
+        "description": "Abstract deep space black and textured graphite background with a diagonal glowing neon green streak",
+        "category": "sports_pattern_bg"
+      }
+    ],
+    "avatars": [
+      {
+        "url": "https://images.unsplash.com/photo-1607286908165-b8b6a2874fc4?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NzV8MHwxfHNlYXJjaHw0fHxhdGhsZXRlJTIwcG9ydHJhaXR8ZW58MHx8fHwxNzc5ODExMzc5fDA&ixlib=rb-4.1.0&q=85",
+        "description": "Woman athlete portrait",
+        "category": "avatar"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1516224498413-84ecf3a1e7fd?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NzV8MHwxfHNlYXJjaHwxfHxhdGhsZXRlJTIwcG9ydHJhaXR8ZW58MHx8fHwxNzc5ODExMzc5fDA&ixlib=rb-4.1.0&q=85",
+        "description": "Man in sports shirt portrait",
+        "category": "avatar"
+      },
+      {
+        "url": "https://images.pexels.com/photos/10340634/pexels-photo-10340634.jpeg",
+        "description": "Tennis player focused portrait",
+        "category": "avatar"
+      }
+    ],
+    "sports_action": [
+      {
+        "url": "https://images.unsplash.com/photo-1759694384846-fe2e5c46e76e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzN8MHwxfHNlYXJjaHwyfHx0ZWFtJTIwc3BvcnRzJTIwbWF0Y2h8ZW58MHx8fHwxNzc5ODExMzc5fDA&ixlib=rb-4.1.0&q=85",
+        "description": "Basketball team huddle",
+        "category": "team_cover"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1582086772405-6e2dcef428d4?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzN8MHwxfHNlYXJjaHwxfHx0ZWFtJTIwc3BvcnRzJTIwbWF0Y2h8ZW58MHx8fHwxNzc5ODExMzc5fDA&ixlib=rb-4.1.0&q=85",
+        "description": "Soccer team on field",
+        "category": "team_cover"
+      }
+    ]
+  },
+  "instructions_to_main_agent": [
+    "Share guidelines and write code strictly for .js files, NOT .tsx files (React Native JS).",
+    "Use pure React Native StyleSheet or NativeWind. Ensure all structural spacing uses the exact values provided in 'spacing'.",
+    "For Dark Mode map, use a custom MapStyle JSON to strip out POIs and turn roads/water into dark grays (#0F0F0F / #1A1A1A) with neon green accents for routes.",
+    "Do not use generic 'Inter' or system fonts for headings. Use 'Outfit' for all Headings (H1-H4) and 'Manrope' for body text. Ensure fonts are loaded properly.",
+    "Strictly apply `data-testid` to all interactive elements (e.g., `data-testid='login-button'`, `data-testid='match-card-1'`).",
+    "Use glassmorphism selectively for floating UI (e.g., Map Filter Chips) by applying translucent dark backgrounds with blurred backdrop.",
+    "Use 8px or 4px radii across all cards to maintain the 'Performance Pro' tactical feel. Do not use overly rounded UI (like 24px+).",
+    "For the Interactive Map, overlay swipeable bottom sheets to display match cards.",
+    "NEVER use placeholder images. Use only the provided image URLs in the assets section."
+  ]
+}
