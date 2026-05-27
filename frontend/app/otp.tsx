@@ -112,7 +112,7 @@ export default function OtpScreen() {
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: "transparent", paddingHorizontal: spacing.lg },
+  safe: { flex: 1, backgroundColor: colors.background, paddingHorizontal: spacing.lg },
   back: { width: 40, height: 40, alignItems: "center", justifyContent: "center", marginTop: spacing.xs },
   body: { flex: 1, paddingTop: spacing.lg },
   h1: { ...text.h1, fontSize: 34, lineHeight: 38 },

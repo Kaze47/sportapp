@@ -138,7 +138,7 @@ const statStyles = StyleSheet.create({
 });
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: "transparent" },
+  safe: { flex: 1, backgroundColor: colors.background },
   header: { paddingHorizontal: spacing.lg, paddingTop: spacing.lg, flexDirection: "row", alignItems: "center" },
   name: { ...text.h2 },
   locRow: { flexDirection: "row", alignItems: "center", gap: 4, marginTop: 4 },

@@ -75,7 +75,7 @@ export default function TeamsTab() {
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: "transparent" },
+  safe: { flex: 1, backgroundColor: colors.background },
   header: { paddingHorizontal: spacing.lg, paddingTop: spacing.lg, flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
   h1: { ...text.h2 },
   iconBtn: { width: 40, height: 40, borderRadius: radii.full, backgroundColor: colors.primary, alignItems: "center", justifyContent: "center" },

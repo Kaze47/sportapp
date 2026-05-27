@@ -7,14 +7,16 @@ export default function TabsLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
+        lazy: true,
+        freezeOnBlur: true,
+        sceneStyle: { backgroundColor: colors.background },
         tabBarStyle: {
-          backgroundColor: "rgba(10,10,10,0.92)",
+          backgroundColor: "rgba(10,10,10,0.96)",
           borderTopColor: "rgba(255,255,255,0.06)",
           borderTopWidth: 1,
           height: 64,
           paddingBottom: 8,
           paddingTop: 6,
-          position: "absolute",
           elevation: 0,
         },
         tabBarActiveTintColor: colors.primary,

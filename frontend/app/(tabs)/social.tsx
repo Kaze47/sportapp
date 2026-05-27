@@ -70,10 +70,10 @@ export default function SocialTab() {
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: "transparent" },
-  header: { paddingHorizontal: spacing.lg, paddingTop: spacing.lg },
+  safe: { flex: 1, backgroundColor: colors.background },
+  header: { paddingHorizontal: spacing.lg, paddingTop: spacing.lg, paddingBottom: 0 },
   h1: { ...text.h2 },
-  tabs: { paddingHorizontal: spacing.lg, paddingVertical: spacing.md, gap: 6, alignItems: "center" },
+  tabs: { paddingHorizontal: spacing.lg, paddingTop: 0, paddingBottom: spacing.md, gap: 6, alignItems: "center" },
   row: { flexDirection: "row", alignItems: "center", gap: spacing.md, paddingVertical: spacing.md },
   avatar: { width: 52, height: 52, borderRadius: 26, backgroundColor: colors.surface },
   topRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", gap: spacing.sm },

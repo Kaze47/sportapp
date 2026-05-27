@@ -219,7 +219,7 @@ export default function HomeMap() {
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: "transparent" },
+  safe: { flex: 1, backgroundColor: colors.background },
   headerRow: {
     paddingHorizontal: spacing.lg,
     paddingTop: spacing.lg,

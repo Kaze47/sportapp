@@ -121,8 +121,8 @@ const infoStyles = StyleSheet.create({
 });
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: "transparent" },
-  center: { flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: "transparent" },
+  safe: { flex: 1, backgroundColor: colors.background },
+  center: { flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: colors.background },
   header: { paddingHorizontal: spacing.md, paddingVertical: spacing.sm, flexDirection: "row", justifyContent: "space-between" },
   iconBtn: { width: 40, height: 40, borderRadius: radii.full, backgroundColor: colors.surfaceRaised, borderWidth: 1, borderColor: colors.border, alignItems: "center", justifyContent: "center" },
   heroBlock: { paddingHorizontal: spacing.lg, gap: spacing.sm, marginTop: spacing.sm },

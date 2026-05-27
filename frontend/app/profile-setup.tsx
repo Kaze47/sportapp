@@ -171,7 +171,7 @@ function Field({ label, icon, children }: { label: string; icon: any; children: 
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: "transparent", paddingHorizontal: spacing.lg },
+  safe: { flex: 1, backgroundColor: colors.background, paddingHorizontal: spacing.lg },
   header: { paddingTop: spacing.lg, gap: spacing.sm },
   step: { ...text.overline, color: colors.primary },
   h1: { ...text.h1, fontSize: 30, lineHeight: 34 },
