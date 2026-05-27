@@ -32,6 +32,7 @@ export default function ProfileSetup() {
   const [name, setName] = useState(user?.name || "");
   const [age, setAge] = useState(user?.age ? String(user.age) : "");
   const [location, setLocation] = useState(user?.location || "Brooklyn, NY");
+  const [bio, setBio] = useState(user?.bio || "");
   const [avatar, setAvatar] = useState(user?.avatar_url || AVATAR_PRESETS[0]);
   const [loading, setLoading] = useState(false);
 
@@ -54,6 +55,7 @@ export default function ProfileSetup() {
         age: ageNum,
         location: location.trim(),
         avatar_url: avatar,
+        bio: bio.trim(),
       });
       setUser({ ...user, ...updated });
       router.push("/sports-preferences");
@@ -127,6 +129,24 @@ export default function ProfileSetup() {
                 style={styles.input}
               />
             </Field>
+
+            <View style={{ gap: spacing.xs }}>
+              <Text style={styles.fieldLabel}>BIO</Text>
+              <View style={[styles.bioWrap]}>
+                <TextInput
+                  testID="profile-bio-input"
+                  value={bio}
+                  onChangeText={setBio}
+                  placeholder="Center back, weekends warrior, loves a slide tackle."
+                  placeholderTextColor={colors.textMuted}
+                  style={styles.bioInput}
+                  multiline
+                  numberOfLines={3}
+                  maxLength={160}
+                />
+                <Text style={styles.bioCount}>{bio.length}/160</Text>
+              </View>
+            </View>
           </View>
         </ScrollView>
 
@@ -151,8 +171,8 @@ function Field({ label, icon, children }: { label: string; icon: any; children: 
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: colors.background, paddingHorizontal: spacing.lg },
-  header: { paddingTop: spacing.md, gap: spacing.sm },
+  safe: { flex: 1, backgroundColor: "transparent", paddingHorizontal: spacing.lg },
+  header: { paddingTop: spacing.lg, gap: spacing.sm },
   step: { ...text.overline, color: colors.primary },
   h1: { ...text.h1, fontSize: 30, lineHeight: 34 },
   sub: { ...text.body, color: colors.textSecondary },
@@ -191,5 +211,8 @@ const styles = StyleSheet.create({
     borderColor: colors.border,
   },
   input: { flex: 1, color: colors.textPrimary, fontFamily: fonts.body, fontSize: 16, paddingVertical: 0 },
+  bioWrap: { backgroundColor: colors.surface, borderRadius: radii.sm, borderWidth: 1, borderColor: colors.border, padding: spacing.md, position: "relative" },
+  bioInput: { color: colors.textPrimary, fontFamily: fonts.body, fontSize: 15, minHeight: 70, textAlignVertical: "top", paddingBottom: 18 },
+  bioCount: { position: "absolute", bottom: 6, right: 12, fontFamily: fonts.body, fontSize: 10, color: colors.textMuted },
   bottom: { paddingBottom: spacing.md },
 });

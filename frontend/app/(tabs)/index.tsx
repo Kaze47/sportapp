@@ -1,12 +1,13 @@
 import { useEffect, useState, useCallback } from "react";
-import { View, Text, StyleSheet, ScrollView, Dimensions, FlatList } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Dimensions, FlatList, Modal, Pressable, Image, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useFocusEffect, useRouter } from "expo-router";
 import { Chip } from "@/src/components/Chip";
 import { MatchCard } from "@/src/components/MatchCard";
 import { FakeMap } from "@/src/components/FakeMap";
-import { colors, fonts, radii, spacing, text, SPORTS } from "@/src/theme";
+import { Button } from "@/src/components/Button";
+import { colors, fonts, radii, spacing, text, SPORTS, sportIcon } from "@/src/theme";
 import { api } from "@/src/api";
 import { useAuth } from "@/src/auth";
 
@@ -21,6 +22,19 @@ const SPORT_FILTERS = [{ key: "all", label: "All" }, ...SPORTS.map((s) => ({ key
 const { width: SCREEN_W } = Dimensions.get("window");
 const CARD_W = SCREEN_W - spacing.lg * 2;
 
+function formatStartsAt(iso: string) {
+  const d = new Date(iso);
+  const now = new Date();
+  const tomorrow = new Date(now);
+  tomorrow.setDate(now.getDate() + 1);
+  const sameDay = d.toDateString() === now.toDateString();
+  const isTomorrow = d.toDateString() === tomorrow.toDateString();
+  const time = d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  if (sameDay) return `Today · ${time}`;
+  if (isTomorrow) return `Tomorrow · ${time}`;
+  return `${d.toLocaleDateString([], { weekday: "short", month: "short", day: "numeric" })} · ${time}`;
+}
+
 export default function HomeMap() {
   const router = useRouter();
   const { user } = useAuth();
@@ -28,6 +42,8 @@ export default function HomeMap() {
   const [sport, setSport] = useState("all");
   const [when, setWhen] = useState("all");
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [popupMatch, setPopupMatch] = useState<any | null>(null);
+  const [joining, setJoining] = useState(false);
 
   const load = useCallback(() => {
     api.listMatches(sport === "all" ? undefined : sport, when === "all" ? undefined : when)
@@ -40,6 +56,36 @@ export default function HomeMap() {
 
   useEffect(() => { load(); }, [sport, when]); // eslint-disable-line react-hooks/exhaustive-deps
   useFocusEffect(useCallback(() => { load(); }, [sport, when])); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const handlePinTap = (m: any) => {
+    setSelectedId(m.id);
+    setPopupMatch(m);
+  };
+
+  const closePopup = () => setPopupMatch(null);
+
+  const joinPopupMatch = async () => {
+    if (!popupMatch || !user) return;
+    setJoining(true);
+    try {
+      const updated = await api.joinMatch(popupMatch.id, user.id);
+      setPopupMatch(updated);
+      setMatches((arr) => arr.map((m) => (m.id === updated.id ? updated : m)));
+    } catch (e: any) {
+      Alert.alert("Could not join", e.message);
+    } finally {
+      setJoining(false);
+    }
+  };
+
+  const viewDetails = () => {
+    const id = popupMatch?.id;
+    closePopup();
+    if (id) router.push({ pathname: "/match/[id]", params: { id } });
+  };
+
+  const isJoined = popupMatch && user && popupMatch.players?.includes(user.id);
+  const isFull = popupMatch && popupMatch.players?.length >= popupMatch.max_players;
 
   return (
     <SafeAreaView style={styles.safe} edges={["top"]}>
@@ -68,7 +114,7 @@ export default function HomeMap() {
       </ScrollView>
 
       <View style={styles.mapWrap}>
-        <FakeMap matches={matches} selectedId={selectedId} onSelect={(m) => setSelectedId(m.id)} />
+        <FakeMap matches={matches} selectedId={selectedId} onSelect={handlePinTap} />
       </View>
 
       <View style={styles.sheet}>
@@ -101,15 +147,82 @@ export default function HomeMap() {
           }
         />
       </View>
+
+      <Modal
+        visible={!!popupMatch}
+        transparent
+        animationType="fade"
+        onRequestClose={closePopup}
+      >
+        <Pressable style={styles.backdrop} onPress={closePopup} testID="map-popup-backdrop">
+          <Pressable style={styles.popup} onPress={() => {}}>
+            {popupMatch && (
+              <>
+                <View style={styles.popupHead}>
+                  <View style={styles.popupSportTile}>
+                    <MaterialCommunityIcons
+                      name={(sportIcon[popupMatch.sport] || "soccer") as any}
+                      size={28}
+                      color={colors.primary}
+                    />
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.popupWhen}>{formatStartsAt(popupMatch.starts_at)}</Text>
+                    <Text style={styles.popupTitle} numberOfLines={1}>{popupMatch.title}</Text>
+                  </View>
+                  <Pressable onPress={closePopup} style={styles.closeBtn} testID="map-popup-close">
+                    <Ionicons name="close" size={18} color={colors.textPrimary} />
+                  </Pressable>
+                </View>
+
+                <View style={styles.popupRow}>
+                  <Ionicons name="location-outline" size={16} color={colors.primary} />
+                  <Text style={styles.popupRowText}>{popupMatch.location_label}</Text>
+                </View>
+                <View style={styles.popupRow}>
+                  <Ionicons name="people-outline" size={16} color={colors.primary} />
+                  <Text style={styles.popupRowText}>
+                    {popupMatch.players?.length || 0}/{popupMatch.max_players} joined · {popupMatch.team_size}v{popupMatch.team_size}
+                  </Text>
+                </View>
+                <View style={styles.popupRow}>
+                  <Ionicons name="trending-up-outline" size={16} color={colors.primary} />
+                  <Text style={styles.popupRowText}>{popupMatch.skill}</Text>
+                </View>
+
+                <View style={styles.popupBtnRow}>
+                  <View style={{ flex: 1 }}>
+                    <Button
+                      testID="map-popup-view-btn"
+                      label="View"
+                      variant="secondary"
+                      onPress={viewDetails}
+                    />
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <Button
+                      testID="map-popup-join-btn"
+                      label={isJoined ? "Joined ✓" : isFull ? "Full" : "Join"}
+                      onPress={joinPopupMatch}
+                      loading={joining}
+                      disabled={!!isJoined || !!isFull}
+                    />
+                  </View>
+                </View>
+              </>
+            )}
+          </Pressable>
+        </Pressable>
+      </Modal>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: colors.background },
+  safe: { flex: 1, backgroundColor: "transparent" },
   headerRow: {
     paddingHorizontal: spacing.lg,
-    paddingTop: spacing.sm,
+    paddingTop: spacing.lg,
     paddingBottom: spacing.sm,
     flexDirection: "row",
     justifyContent: "space-between",
@@ -146,4 +259,45 @@ const styles = StyleSheet.create({
   sheetHeader: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingHorizontal: spacing.lg, paddingVertical: spacing.sm },
   sheetTitle: { ...text.h4 },
   sheetLink: { ...text.body, color: colors.primary, fontFamily: fonts.bodyMed },
+  backdrop: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.6)",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: spacing.lg,
+  },
+  popup: {
+    width: "100%",
+    maxWidth: 380,
+    backgroundColor: colors.surfaceRaised,
+    borderRadius: radii.lg,
+    borderWidth: 1,
+    borderColor: colors.primary,
+    padding: spacing.md,
+    gap: spacing.sm,
+  },
+  popupHead: { flexDirection: "row", alignItems: "center", gap: spacing.md },
+  popupSportTile: {
+    width: 52,
+    height: 52,
+    borderRadius: radii.sm,
+    backgroundColor: colors.primaryDim,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  popupWhen: { ...text.overline, color: colors.primary, fontSize: 10 },
+  popupTitle: { ...text.h4, marginTop: 2 },
+  closeBtn: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  popupRow: { flexDirection: "row", alignItems: "center", gap: spacing.sm, paddingVertical: 2 },
+  popupRowText: { ...text.body, color: colors.textPrimary },
+  popupBtnRow: { flexDirection: "row", gap: spacing.sm, marginTop: spacing.sm },
 });

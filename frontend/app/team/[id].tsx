@@ -154,8 +154,8 @@ const statStyles = StyleSheet.create({
 });
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: colors.background },
-  center: { flex: 1, backgroundColor: colors.background, alignItems: "center", justifyContent: "center" },
+  safe: { flex: 1, backgroundColor: "transparent" },
+  center: { flex: 1, backgroundColor: "transparent", alignItems: "center", justifyContent: "center" },
   headerStack: { height: 180, position: "relative" },
   cover: { ...StyleSheet.absoluteFillObject },
   coverOverlay: { ...StyleSheet.absoluteFillObject, backgroundColor: "rgba(5,5,5,0.5)" },

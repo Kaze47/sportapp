@@ -48,6 +48,7 @@ class ProfileSetupRequest(BaseModel):
     age: int
     location: str
     avatar_url: Optional[str] = None
+    bio: Optional[str] = None
 
 
 class SportPref(BaseModel):
@@ -139,6 +140,7 @@ async def verify_otp(payload: OTPVerifyRequest):
             "age": None,
             "location": None,
             "avatar_url": None,
+            "bio": None,
             "sports": [],
             "reputation": 5.0,
             "attendance_rate": 100,
@@ -154,14 +156,17 @@ async def verify_otp(payload: OTPVerifyRequest):
 
 @api_router.post("/users/profile")
 async def update_profile(payload: ProfileSetupRequest):
+    update_set = {
+        "name": payload.name,
+        "age": payload.age,
+        "location": payload.location,
+        "avatar_url": payload.avatar_url,
+    }
+    if payload.bio is not None:
+        update_set["bio"] = payload.bio
     res = await db.users.update_one(
         {"id": payload.user_id},
-        {"$set": {
-            "name": payload.name,
-            "age": payload.age,
-            "location": payload.location,
-            "avatar_url": payload.avatar_url,
-        }},
+        {"$set": update_set},
     )
     if res.matched_count == 0:
         raise HTTPException(status_code=404, detail="User not found")
@@ -386,7 +391,7 @@ async def seed_db():
     # Users
     names = ["Alex Rivera", "Jordan Park", "Sam Chen", "Riley Cooper", "Casey Morgan",
              "Drew Patel", "Quinn Foster", "Avery Singh", "Blake Nguyen", "Cameron Liu"]
-    sports_pool = ["football", "basketball", "tennis", "padel", "volleyball"]
+    sports_pool = ["football", "basketball", "tennis", "padel", "volleyball", "pingpong"]
     skills = ["Beginner", "Intermediate", "Advanced"]
     users = []
     for i, n in enumerate(names):
@@ -448,12 +453,13 @@ async def seed_db():
         "tennis": ["Doubles Mixer", "Singles Ladder", "Morning Rally"],
         "padel": ["Padel Drop-in", "Padel Tournament"],
         "volleyball": ["Beach Volley", "Indoor 6v6"],
+        "pingpong": ["Ping-Pong Ladder", "Table Tennis Open", "Paddle Smash Night"],
     }
     matches = []
     for i in range(14):
         sport = random.choice(sports_pool)
         starts = datetime.now(timezone.utc) + timedelta(days=random.randint(0, 6), hours=random.randint(1, 10))
-        team_size = 5 if sport == "football" else 3 if sport == "basketball" else 2
+        team_size = 5 if sport == "football" else 3 if sport == "basketball" else 1 if sport == "pingpong" else 2
         match = {
             "id": new_id(),
             "sport": sport,

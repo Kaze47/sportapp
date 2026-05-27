@@ -26,6 +26,13 @@ export default function ProfileTab() {
           <View style={{ flex: 1 }}>
             <Text style={styles.name}>{user.name || "Player"}</Text>
             <View style={styles.locRow}>
+              {user.age ? (
+                <>
+                  <Ionicons name="calendar-outline" size={13} color={colors.textSecondary} />
+                  <Text style={styles.loc}>{user.age}</Text>
+                  <View style={styles.dotSep} />
+                </>
+              ) : null}
               <Ionicons name="location-outline" size={14} color={colors.textSecondary} />
               <Text style={styles.loc}>{user.location || "Brooklyn, NY"}</Text>
             </View>
@@ -44,6 +51,13 @@ export default function ProfileTab() {
             </View>
           )}
         </View>
+
+        {user.bio ? (
+          <View style={styles.bioCard} testID="profile-bio">
+            <Text style={styles.bioLabel}>BIO</Text>
+            <Text style={styles.bioText}>{user.bio}</Text>
+          </View>
+        ) : null}
 
         <View style={styles.statsCard}>
           <Stat icon="star" value={user.reputation.toFixed(1)} label="REPUTATION" highlight />
@@ -124,11 +138,15 @@ const statStyles = StyleSheet.create({
 });
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: colors.background },
-  header: { paddingHorizontal: spacing.lg, paddingTop: spacing.sm, flexDirection: "row", alignItems: "center" },
+  safe: { flex: 1, backgroundColor: "transparent" },
+  header: { paddingHorizontal: spacing.lg, paddingTop: spacing.lg, flexDirection: "row", alignItems: "center" },
   name: { ...text.h2 },
   locRow: { flexDirection: "row", alignItems: "center", gap: 4, marginTop: 4 },
   loc: { ...text.caption },
+  dotSep: { width: 3, height: 3, borderRadius: 2, backgroundColor: colors.textMuted, marginHorizontal: 4 },
+  bioCard: { marginHorizontal: spacing.lg, marginTop: spacing.lg, padding: spacing.md, backgroundColor: colors.surfaceRaised, borderRadius: radii.md, borderWidth: 1, borderColor: colors.border },
+  bioLabel: { ...text.overline, color: colors.primary, marginBottom: 6 },
+  bioText: { ...text.body, color: colors.textPrimary, lineHeight: 20 },
   signoutBtn: { width: 40, height: 40, borderRadius: radii.full, backgroundColor: colors.surfaceRaised, borderWidth: 1, borderColor: colors.border, alignItems: "center", justifyContent: "center" },
   avatarSection: { alignItems: "center", marginTop: spacing.md },
   avatar: { width: 110, height: 110, borderRadius: 55, borderWidth: 2, borderColor: colors.primary },

@@ -62,6 +62,7 @@ export const SPORTS = [
   { key: "tennis", label: "Tennis", icon: "tennis", iconLib: "MaterialCommunityIcons" },
   { key: "padel", label: "Padel", icon: "tennis-ball", iconLib: "MaterialCommunityIcons" },
   { key: "volleyball", label: "Volleyball", icon: "volleyball", iconLib: "MaterialCommunityIcons" },
+  { key: "pingpong", label: "Ping-Pong", icon: "table-tennis", iconLib: "MaterialCommunityIcons" },
 ] as const;
 
 export const sportIcon: Record<string, string> = {
@@ -70,4 +71,5 @@ export const sportIcon: Record<string, string> = {
   tennis: "tennis",
   padel: "tennis-ball",
   volleyball: "volleyball",
+  pingpong: "table-tennis",
 };

@@ -104,11 +104,11 @@ export default function MatchesTab() {
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: colors.background },
-  header: { paddingHorizontal: spacing.lg, paddingTop: spacing.sm, flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
+  safe: { flex: 1, backgroundColor: "transparent" },
+  header: { paddingHorizontal: spacing.lg, paddingTop: spacing.lg, flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
   h1: { ...text.h2 },
   iconBtn: { width: 40, height: 40, borderRadius: radii.full, backgroundColor: colors.primary, alignItems: "center", justifyContent: "center" },
-  tabs: { paddingHorizontal: spacing.lg, paddingVertical: spacing.md, gap: spacing.sm },
+  tabs: { paddingHorizontal: spacing.lg, paddingVertical: spacing.md, gap: spacing.sm, alignItems: "center" },
   empty: { ...text.body, color: colors.textSecondary, textAlign: "center", marginTop: spacing.xl },
   section: { ...text.h4, paddingHorizontal: spacing.lg, paddingTop: spacing.md, paddingBottom: spacing.sm },
   discoveryCard: { width: 240, borderRadius: radii.md, backgroundColor: colors.surfaceRaised, overflow: "hidden", borderWidth: 1, borderColor: colors.border },

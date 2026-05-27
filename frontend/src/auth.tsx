@@ -8,6 +8,7 @@ type User = {
   age: number | null;
   location: string | null;
   avatar_url: string | null;
+  bio: string | null;
   sports: { sport: string; skill: string }[];
   reputation: number;
   attendance_rate: number;

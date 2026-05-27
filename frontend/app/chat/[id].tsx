@@ -171,8 +171,8 @@ export default function ChatScreen() {
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: colors.background },
-  center: { flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: colors.background },
+  safe: { flex: 1, backgroundColor: "transparent" },
+  center: { flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: "transparent" },
   header: { flexDirection: "row", alignItems: "center", gap: spacing.sm, paddingHorizontal: spacing.md, paddingVertical: spacing.sm, borderBottomWidth: 1, borderColor: colors.border },
   iconBtn: { width: 40, height: 40, borderRadius: radii.full, backgroundColor: colors.surfaceRaised, borderWidth: 1, borderColor: colors.border, alignItems: "center", justifyContent: "center" },
   avatar: { width: 36, height: 36, borderRadius: 18, backgroundColor: colors.surface },

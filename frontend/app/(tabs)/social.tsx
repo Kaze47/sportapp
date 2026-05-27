@@ -32,7 +32,7 @@ export default function SocialTab() {
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.tabs}>
         {KINDS.map((k) => (
-          <Chip key={k.key} testID={`chat-tab-${k.key}`} label={k.label} active={kind === k.key} onPress={() => setKind(k.key)} />
+          <Chip key={k.key} testID={`chat-tab-${k.key}`} label={k.label} active={kind === k.key} onPress={() => setKind(k.key)} compact />
         ))}
       </ScrollView>
       <FlatList
@@ -70,10 +70,10 @@ export default function SocialTab() {
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: colors.background },
-  header: { paddingHorizontal: spacing.lg, paddingTop: spacing.sm },
+  safe: { flex: 1, backgroundColor: "transparent" },
+  header: { paddingHorizontal: spacing.lg, paddingTop: spacing.lg },
   h1: { ...text.h2 },
-  tabs: { paddingHorizontal: spacing.lg, paddingVertical: spacing.md, gap: spacing.sm },
+  tabs: { paddingHorizontal: spacing.lg, paddingVertical: spacing.md, gap: 6, alignItems: "center" },
   row: { flexDirection: "row", alignItems: "center", gap: spacing.md, paddingVertical: spacing.md },
   avatar: { width: 52, height: 52, borderRadius: 26, backgroundColor: colors.surface },
   topRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", gap: spacing.sm },
